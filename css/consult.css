@@ -218,3 +218,59 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .p3.tight .cintro div{padding:6px 10px}
 .p3.tight .rule{padding:8px 12px;font-size:12px}
 .p3.tight .rule div{line-height:1.5}
+
+/* ── 2026-10-30 한 장 버전 ── */
+.page.one{padding:38px 46px 34px}
+.one .pg-top{padding-bottom:6px}
+.one .hero .kicker{margin:16px 0 0;font-size:12.5px}
+.one .h-big{font-size:34px;margin:4px 0 8px;letter-spacing:-1.2px}
+.one .lead{font-size:13.5px;margin:0 0 4px;max-width:none}
+.one .h-sec{font-size:16px;margin:16px 0 8px}
+.one .h-sec i{font-size:11px;padding:2px 6px}
+.intro-row{display:grid;grid-template-columns:1.75fr 1fr;gap:10px;align-items:stretch}
+.one .teacher{padding:14px 16px;gap:12px;margin:0}
+.one .t-badge{flex:0 0 104px;padding-right:12px}
+.one .t-badge b{font-size:17px}
+.one .teacher blockquote{font-size:13px;line-height:1.6;padding-left:20px}
+.one .teacher blockquote::before{font-size:34px;top:-10px}
+.one .facts{grid-template-columns:1fr;gap:6px}
+.one .facts div{padding:7px 12px;border-radius:10px;display:flex;align-items:baseline;gap:8px}
+.one .facts b{font-size:14.5px;white-space:nowrap}
+.one .facts span{font-size:11.5px;line-height:1.35}
+.one .steps4 div{padding:7px 6px}
+.one .steps4 small{width:48px;font-size:11px;margin-bottom:3px}
+.one .steps4 b{font-size:14.5px}
+.one .note{font-size:11.5px;margin-top:6px}
+.one .note .adj{color:var(--org);font-weight:700}
+.one .strengths{grid-template-columns:repeat(3,1fr);gap:8px}
+.one .strengths div{padding:9px 12px 9px 42px;min-height:0;border-radius:12px}
+.one .strengths small{left:11px;top:10px;width:23px;height:23px;font-size:11.5px}
+.one .strengths b{font-size:13.5px}
+.one .strengths span{font-size:11.5px;line-height:1.45}
+.one .slots-out{font-size:13px}
+.one .slots-out th{padding:6px 10px;font-size:12px}
+.one .slots-out td{padding:7px 10px;vertical-align:top}
+.one .slots-out td:first-child{width:150px}
+.one .slots-out td:first-child small{display:block;font-size:11px;color:var(--org);font-weight:700}
+.one .slots-out td:nth-child(2){width:150px;color:var(--org);font-weight:700;white-space:normal}
+.one .slots-out td:nth-child(3){color:var(--ink2);font-size:12px;font-weight:400}
+.one .slots-out .empty td{text-align:center;width:auto}
+.rule-line{margin:6px 0 0;font-size:11.5px;color:var(--ink2)}
+.one .contact{margin:auto 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;border-radius:14px}
+.one .closing{font-size:15.5px;margin:0 0 4px}
+.one .c-room{font-size:12.5px}
+.one .c-tel{display:block;text-align:right;margin:0;padding:0;border:0;font-size:13px}
+.one .c-tel .tel{display:block;font-size:28px;line-height:1.1}
+/* 넘칠 때 조금 촘촘하게 */
+.one.tight .h-sec{margin:12px 0 6px}
+.one.tight .h-big{font-size:30px}
+.one.tight .strengths span{font-size:11px}
+.one.tight .slots-out td{padding:5px 10px}
+.page.one > *{flex-shrink:0}
+.one .t-badge{flex:0 0 auto;padding-right:0;border-right:0;border-bottom:1px solid var(--ln);padding-bottom:6px;margin-bottom:6px;flex-direction:row;align-items:baseline;gap:8px;justify-content:flex-start}
+.one .teacher{flex-direction:column;gap:0;padding:12px 16px}
+.one .teacher blockquote{align-self:stretch}
+.one .facts span{white-space:nowrap}
+.one .facts div{padding:7px 10px}
+.rule-line .place{font-size:inherit;margin:0;color:inherit}
+.rule-line{margin-bottom:12px}
