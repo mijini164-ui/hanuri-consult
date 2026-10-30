@@ -59,7 +59,7 @@
     room: "", teacher: "", phone: "", place: "",
     branch: "한우리 안산단원지부", branchTel: "031-413-1919",
     phil: PHIL[0],
-    slots: [blankSlot(), blankSlot(), blankSlot()],
+    slots: [blankSlot(), blankSlot()],
     rule: "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분 · 6~7세 40분 · 한 반 2~6명",
     closing: "아이의 생각이 자라는 시간, 한우리가 함께할게요.",
     text: {}
@@ -78,7 +78,7 @@
     var o = JSON.parse(JSON.stringify(DEF));
     if (s && typeof s === "object") for (var k in o) if (k in s) o[k] = s[k];
     if (!Array.isArray(o.slots) || o.slots.some(function (r) { return !r || typeof r !== "object" || Array.isArray(r); })) o.slots = DEF.slots;
-    o.slots = o.slots.slice(0, 3); while (o.slots.length < 3) o.slots.push(blankSlot());
+    o.slots = o.slots.slice(0, 2); while (o.slots.length < 2) o.slots.push(blankSlot());
     if (!o.text || typeof o.text !== "object") o.text = {};
     return o;
   }
@@ -128,7 +128,7 @@
 
 
   var OPTS = '<option value="">단계 고르기</option>' + COURSES.map(function (g) {
-    return '<optgroup label="' + g[0] + '">' + g[1].map(function (c) { return '<option value="' + c[0] + '">' + c[0] + ' (' + c[1] + ')</option>'; }).join("") + "</optgroup>";
+    return '<optgroup label="' + g[0] + '">' + g[1].map(function (c) { return '<option value="' + c[0] + '">' + c[0] + '</option>'; }).join("") + "</optgroup>";
   }).join("") + '<option value="' + CUSTOM + '">직접 적기</option>';
   function drawSlots() {
     var box = $("#slots"); box.innerHTML = "";
@@ -136,19 +136,17 @@
       var d = document.createElement("div"); d.className = "slot2";
       d.innerHTML = '<div class="slot-row"><select aria-label="단계 ' + (i + 1) + '">' + OPTS + '</select>' +
         '<button type="button" class="x" aria-label="이 칸 비우기">✕</button></div>' +
-        '<div class="slot-row3"><input data-s="grade" aria-label="대상" placeholder="대상 (예: 초3)"><input data-s="day" aria-label="요일" placeholder="요일 (예: 화)"><input data-s="time" aria-label="시간" placeholder="시간 (예: 4:00~5:30)"></div>' +
+        '<div class="slot-row3"><input data-s="day" aria-label="요일" placeholder="요일 (예: 화)"><input data-s="time" aria-label="시간" placeholder="시간 (예: 4:00~5:30)"></div>' +
         '<div class="slot-custom"' + (r.course === CUSTOM ? "" : " hidden") + '><input data-s="name" aria-label="과정 이름" placeholder="단계(과정) 이름"><textarea data-s="intro" rows="2" aria-label="과정 소개" placeholder="과정 소개 한 줄"></textarea></div>';
       var sel = d.querySelector("select");
       sel.value = r.course || "";
       $$("[data-s]", d).forEach(function (inp) {
         var k = inp.dataset.s;
-        inp.value = k === "grade" ? (r.grade || (CMAP[r.course] ? CMAP[r.course][1] : "")) : (r[k] || "");
+        inp.value = r[k] || "";
         inp.addEventListener("input", function () { r[k] = inp.value; render(); save(); });
       });
       sel.addEventListener("change", function () {
         r.course = sel.value;
-        r.grade = CMAP[r.course] ? CMAP[r.course][1] : "";
-        d.querySelector("[data-s=grade]").value = r.grade;
         d.querySelector(".slot-custom").hidden = r.course !== CUSTOM;
         render(); save();
       });
@@ -176,7 +174,7 @@
     var rows = state.slots.filter(function (r) { return slotName(r) || (r.day || "").trim() || (r.time || "").trim(); });
     $("#slotsOut").innerHTML = rows.length ? rows.map(function (r) {
       var when = [(r.day || "").trim(), (r.time || "").trim()].filter(Boolean).join(" ");
-      return "<tr><td><b>" + esc(slotName(r) || "") + "</b>" + (r.grade ? "<small>" + esc(r.grade) + "</small>" : "") + "</td><td>" + esc(when) + "</td><td>" + esc(slotIntro(r)) + "</td></tr>";
+      return "<tr><td><b>" + esc(slotName(r) || "") + "</b></td><td>" + esc(when) + "</td><td>" + esc(slotIntro(r)) + "</td></tr>";
     }).join("") : '<tr class="empty"><td colspan="3">수업 시간은 상담 후 아이에게 맞춰 정해요.</td></tr>';
     var pg = $("#page1");
     pg.classList.remove("tight");
