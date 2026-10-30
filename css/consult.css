@@ -275,3 +275,21 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .rule-line .place{font-size:inherit;margin:0;color:inherit}
 .rule-line{margin-bottom:12px}
 .slot-row3{grid-template-columns:.8fr 1.4fr}
+/* 2026-10-30: 숫자 칸·4차시 뺀 뒤 넉넉하게 */
+.intro-row{grid-template-columns:1fr}
+.one .h-big{font-size:40px}
+.one .lead{font-size:14.5px}
+.one .h-sec{font-size:18px;margin:26px 0 10px}
+.one .teacher{padding:18px 22px}
+.one .t-badge b{font-size:20px}
+.one .teacher blockquote{font-size:15px;line-height:1.7}
+.one .strengths{gap:10px}
+.one .strengths div{padding:14px 14px 14px 48px}
+.one .strengths small{width:26px;height:26px;left:13px;top:14px;font-size:12.5px}
+.one .strengths b{font-size:15px;margin-bottom:3px}
+.one .strengths span{font-size:12.5px}
+.one .slots-out{font-size:14px}
+.one .slots-out td{padding:10px 12px}
+.one .slots-out td:nth-child(3){font-size:13px}
+.rule-line{font-size:12px;margin-top:8px}
+.one .slots-out td:first-child{width:130px}.one .slots-out td:nth-child(2){width:190px;white-space:nowrap}
