@@ -55,7 +55,8 @@
     <p class="hint">단계를 2개까지 고르고 수업 시간을 적어요. 고른 단계만 안내문에 짧게 소개돼요. 빈 칸은 나오지 않아요.</p>
     <div id="slots"></div>
     <label>수업 장소 <input id="f-place" data-f="place" placeholder="예: 고잔동 ○○아파트 상가 2층 / 방문 수업"></label>
-    <label>수업 기준 (한 줄) <input id="f-rule" data-f="rule"></label>
+    <label>수업 기준 1 <input id="f-rule" data-f="rule"></label>
+    <label>수업 기준 2 <input id="f-rule2" data-f="rule2"></label>
     <label>마지막 한마디 <input id="f-closing" data-f="closing"></label>
     <div class="two">
       <label>지부 이름 <input id="f-branch" data-f="branch"></label>
@@ -105,7 +106,9 @@
   <h3 class="h-sec"><i>03</i><span data-k="p3.s2">수업 시간 안내</span></h3>
   <table class="slots-out"><thead><tr><th>단계</th><th>요일 · 시간</th><th>이런 수업이에요</th></tr></thead><tbody id="slotsOut"></tbody></table>
   <p class="chasi-note" data-k="p3.chasinote">※ 차시 구성은 달·호와 아이의 수업 상황에 따라 바뀔 수 있어요.</p>
-  <p class="rule-line"><span data-b="rule"></span><span class="place" data-b-wrap="place"> · 수업 장소: <span data-b="place"></span></span></p>
+  <p class="rule-line" data-b-wrap="rule"><span data-b="rule"></span></p>
+  <p class="rule-line" data-b-wrap="rule2"><span data-b="rule2"></span></p>
+  <p class="rule-line" data-b-wrap="place">수업 장소: <span data-b="place"></span></p>
 
   <div class="contact">
     <div class="c-left"><p class="closing" data-b="closing"></p><div class="c-room"><b data-b="room"></b> <span class="c-br" data-b="branch"></span></div></div>

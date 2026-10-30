@@ -60,7 +60,8 @@
     branch: "한우리 안산단원지부", branchTel: "031-413-1919",
     phil: PHIL[0],
     slots: [blankSlot(), blankSlot()],
-    rule: "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분 · 6~7세 40분 · 한 반 2~6명",
+    rule: "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분",
+    rule2: "6~7세는 40분 수업 · 한 반은 2~6명",
     closing: "아이의 생각이 자라는 시간, 한우리가 함께할게요.",
     text: {}
   };
@@ -78,6 +79,7 @@
     var o = JSON.parse(JSON.stringify(DEF));
     if (s && typeof s === "object") for (var k in o) if (k in s) o[k] = s[k];
     if (!Array.isArray(o.slots) || o.slots.some(function (r) { return !r || typeof r !== "object" || Array.isArray(r); })) o.slots = DEF.slots;
+    if (o.rule === "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분 · 6~7세 40분 · 한 반 2~6명") { o.rule = DEF.rule; o.rule2 = DEF.rule2; }
     o.slots = o.slots.slice(0, 2); while (o.slots.length < 2) o.slots.push(blankSlot());
     if (!o.text || typeof o.text !== "object") o.text = {};
     return o;

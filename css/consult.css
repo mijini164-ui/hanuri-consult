@@ -304,3 +304,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .one .slots-out th:nth-child(1){width:84px}.one .slots-out th:nth-child(2){width:140px}.chasi{gap:4px}.chasi span{font-size:11px;padding-right:7px}
 .one .h-big{font-size:36px}.one .h-sec{margin:20px 0 9px}
 .chasi{gap:3px}.chasi span{padding:2px 6px 2px 2px;font-size:10.5px}.chasi span i{padding:1px 5px;margin-right:4px;font-size:10px}.one .slots-out th:nth-child(2){width:130px}
+.one .rule-line{margin:2px 0 0}
+.one .rule-line + .contact{margin-top:auto}
+.one .chasi-note{margin-bottom:4px}
+.one .h-sec{margin:16px 0 8px}.one .hero .kicker{margin-top:12px}
