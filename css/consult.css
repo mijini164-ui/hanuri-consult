@@ -174,3 +174,47 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
   .page:last-child{break-after:auto}
   .editing [data-k]{outline:0!important;background:none!important}
 }
+
+/* ── 2026-10-30 개편: 1장 선생님 소개·조정 안내, 2장 강점, 3장 과정 소개·연락처 ── */
+.panel select{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:14px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 8px}
+.slot2{border:1px solid var(--line);border-radius:10px;padding:8px;margin-bottom:8px}
+.slot-row{display:grid;grid-template-columns:1fr 28px;gap:6px;align-items:center}
+.slot-row .x{padding:4px 0;border:0;background:transparent;color:var(--muted)}
+.slot-row3{display:grid;grid-template-columns:1fr .8fr 1.3fr;gap:6px;margin-top:6px}
+.slot-row3 input,.slot-custom input,.slot-custom textarea{margin-top:0!important;padding:7px 8px!important;font-size:13px!important}
+.slot-custom{display:grid;gap:6px;margin-top:6px}
+
+.p1 .hero .kicker{margin-top:22px}
+.p1 .teacher{margin-bottom:14px}
+.adjust{margin-top:12px;border:1.5px dashed var(--org);border-radius:12px;padding:10px 14px;background:var(--org-s);font-size:13px}
+.adjust b{display:block;color:var(--org);font-size:13.5px;margin-bottom:2px}
+.adjust span{color:var(--ink)}
+
+.p2 .h-mid{margin-top:28px}
+.strengths{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.strengths div{background:var(--cream);border-radius:14px;padding:12px 16px 12px 54px;position:relative;min-height:62px}
+.strengths small{position:absolute;left:14px;top:13px;width:30px;height:30px;border-radius:50%;background:var(--org);color:#fff;font-weight:900;font-size:12.5px;display:grid;place-items:center}
+.strengths b{display:block;font-size:15.5px;margin-bottom:2px}
+.strengths span{display:block;font-size:12.5px;color:var(--ink2);line-height:1.5}
+
+.slots-out td:nth-child(2){color:var(--ink2);font-weight:400}
+.slots-out td:last-child{color:var(--org)}
+.cintro{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.cintro div{border-left:3px solid var(--org);background:var(--cream);border-radius:0 10px 10px 0;padding:8px 12px}
+.cintro b{font-size:14px}
+.cintro small{margin-left:6px;font-size:11.5px;color:var(--org);font-weight:700}
+.cintro span{display:block;font-size:12px;color:var(--ink2);line-height:1.45;margin-top:2px}
+.time2{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+.time2 .place{margin:0;font-size:13px;display:flex;gap:8px}
+.p3 .contact{margin:auto 0 0}
+.c-room{font-size:14px;opacity:.95}
+.c-room .c-br{font-size:12.5px;opacity:.85;margin-left:6px}
+.c-tel{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.35);font-size:15px}
+.c-tel .tel{font-size:30px;font-weight:900;letter-spacing:0}
+.p1 .pts{margin-bottom:8px}
+/* 3장이 넘칠 때 조금 촘촘하게 */
+.p3.tight .slots-out td{padding:6px 10px}
+.p3.tight .cintro{gap:6px}
+.p3.tight .cintro div{padding:6px 10px}
+.p3.tight .rule{padding:8px 12px;font-size:12px}
+.p3.tight .rule div{line-height:1.5}

@@ -17,7 +17,7 @@
   <div class="bar-in">
     <div>
       <h1>신규 상담 안내문 만들기</h1>
-      <p class="sub">왼쪽에 우리 교실 정보를 적으면 오른쪽 안내문 3장에 바로 들어가요. 적은 내용은 이 기기에 저장돼요.</p>
+      <p class="sub">왼쪽 칸을 채우면 오른쪽 안내문 3장에 바로 들어가요. 적은 내용은 이 기기에 저장돼요.</p>
     </div>
     <div class="actions">
       <button type="button" id="savePdf" class="primary">PDF로 저장</button>
@@ -32,28 +32,26 @@
 <!-- ───────── 입력 ───────── -->
 <form class="panel" id="form" autocomplete="off" onsubmit="return false">
   <section>
-    <h2>1. 우리 교실</h2>
-    <label>교실 이름 <input id="f-room" data-f="room" placeholder="예: 한우리 안산단원 ○○교실"></label>
+    <h2>1. 큰 제목 (1장 맨 위)</h2>
+    <p class="hint">예시를 누르거나 직접 써요. 줄을 바꾸면 안내문에서도 줄이 바뀌고, <b>[ ]</b> 안의 말은 주황색으로 보여요.</p>
+    <div class="chips" id="titleChips"></div>
+    <label class="sr">큰 제목 <textarea id="f-title" data-f="title" rows="2"></textarea></label>
+  </section>
+
+  <section>
+    <h2>2. 선생님 소개</h2>
     <div class="two">
       <label>선생님 이름 <input id="f-teacher" data-f="teacher" placeholder="예: 김한우리"></label>
       <label>연락처 <input id="f-phone" data-f="phone" placeholder="예: 010-0000-0000"></label>
     </div>
-    <label>수업 장소 <input id="f-place" data-f="place" placeholder="예: 고잔동 ○○아파트 상가 2층 / 방문 수업"></label>
-    <div class="two">
-      <label>지부 이름 <input id="f-branch" data-f="branch"></label>
-      <label>지부 전화 <input id="f-branchTel" data-f="branchTel"></label>
-    </div>
-  </section>
-
-  <section>
-    <h2>2. 선생님의 교육 철학 (교사관)</h2>
-    <p class="hint">2~3줄이 가장 잘 읽혀요. 예시를 누르면 칸에 들어가요. 넣은 뒤 내 말로 고쳐 주세요.</p>
+    <label>교실 이름 <input id="f-room" data-f="room" placeholder="예: 한우리 안산단원 ○○교실"></label>
+    <p class="hint" style="margin-top:10px">교사관(교육 철학): 2~3줄이 가장 잘 읽혀요. 예시를 넣은 뒤 내 말로 고쳐 주세요.</p>
     <div class="chips" id="philChips"></div>
     <label class="sr">교사관 <textarea id="f-phil" data-f="phil" rows="4"></textarea></label>
   </section>
 
   <section>
-    <h2>3. 우리 교실만의 특별한 점 (3가지)</h2>
+    <h2>3. 우리 교실만의 특별한 점 (1장, 3가지)</h2>
     <p class="hint">예시를 누르면 비어 있는 칸부터 채워져요.</p>
     <div class="chips" id="pointChips"></div>
     <div id="points"></div>
@@ -61,12 +59,16 @@
 
   <section>
     <h2>4. 수업 시간 안내</h2>
-    <p class="hint">반마다 한 줄씩 적어요. 비어 있는 줄은 안내문에 나오지 않아요.</p>
-    <div class="slots-head"><span>대상·과정</span><span>요일</span><span>시간</span><span></span></div>
+    <p class="hint">반마다 과정을 고르고 요일·시간을 적어요. 고른 과정은 3장에 짧은 소개가 함께 나와요.</p>
     <div id="slots"></div>
-    <button type="button" class="ghost" id="addSlot">+ 줄 추가</button>
+    <button type="button" class="ghost" id="addSlot">+ 반 추가</button>
+    <label>수업 장소 <input id="f-place" data-f="place" placeholder="예: 고잔동 ○○아파트 상가 2층 / 방문 수업"></label>
     <label>수업 기준 안내 <textarea id="f-rule" data-f="rule" rows="5"></textarea></label>
-    <label>마지막 한마디 <input id="f-closing" data-f="closing"></label>
+    <label>마지막 한마디 <textarea id="f-closing" data-f="closing" rows="2"></textarea></label>
+    <div class="two">
+      <label>지부 이름 <input id="f-branch" data-f="branch"></label>
+      <label>지부 전화 <input id="f-branchTel" data-f="branchTel"></label>
+    </div>
   </section>
 
   <section>
@@ -81,22 +83,28 @@
 <div class="preview" id="preview">
 <div class="pages" id="pages">
 
-<!-- ===== 1장: 한우리 소개 ===== -->
-<article class="page p1" id="page1" aria-label="1장 한우리 소개">
+<!-- ===== 1장: 제목 · 선생님 소개 · 수업 방식 ===== -->
+<article class="page p1" id="page1" aria-label="1장 우리 수업 소개">
   <div class="pg-top"><span class="brand">한우리 독서토론논술</span><span class="room" data-b="room"></span></div>
   <div class="hero">
     <p class="kicker" data-k="p1.kicker">35년 독서교육 전문</p>
-    <h2 class="h-big" data-k="p1.title">책을 <em>읽는</em> 아이에서<br><em>생각하는</em> 아이로</h2>
+    <h2 class="h-big" id="titleOut"></h2>
     <p class="lead" data-k="p1.lead">한우리는 책을 읽고, 말하고, 토론하고, 글로 쓰는 과정을 통해 아이 스스로 생각하는 힘을 키우는 독서교육 프로그램이에요.</p>
   </div>
 
+  <h3 class="h-sec"><i>01</i><span data-k="p1.s0">우리 수업을 소개해요</span></h3>
+  <div class="teacher">
+    <div class="t-badge"><small data-k="p1.badge">한우리 독서지도사</small><b><span data-b="teacher"></span> 선생님</b></div>
+    <blockquote data-b="phil"></blockquote>
+  </div>
+
   <div class="facts">
-    <div><b data-k="p1.f1t">6세 ~ 중3</b><span data-k="p1.f1">학년별로 반을 나눠<br>수업해요</span></div>
-    <div><b data-k="p1.f2t">주 1회 · 월 4회</b><span data-k="p1.f2">매달 새로운 필독서와<br>새 워크북으로 수업해요</span></div>
+    <div><b data-k="p1.f1t">6세 ~ 고등</b><span data-k="p1.f1">학년별로 반을 나눠<br>수업해요</span></div>
+    <div><b data-k="p1.f2t">주 1회 ~ 2회</b><span data-k="p1.f2">매달 새로운 필독서와<br>새 워크북으로 수업해요</span></div>
     <div><b data-k="p1.f3t">독서지도사</b><span data-k="p1.f3">자격을 갖춘 선생님이<br>직접 지도해요</span></div>
   </div>
 
-  <h3 class="h-sec"><i>01</i><span data-k="p1.s1">한 달 4차시, 이렇게 수업해요</span></h3>
+  <h3 class="h-sec"><i>02</i><span data-k="p1.s1">한 달 4차시, 이렇게 수업해요</span></h3>
   <div class="steps4">
     <div><small>1차시</small><b data-k="p1.c1">읽기 · 쓰기</b></div>
     <div><small>2차시</small><b data-k="p1.c2">교과 읽기</b></div>
@@ -104,8 +112,29 @@
     <div><small>4차시</small><b data-k="p1.c4">문학 읽기</b></div>
   </div>
   <p class="note" data-k="p1.cnote">읽기·말하기·듣기·쓰기·생각하기 영역을 골고루 다뤄요. (초등 4학년 예시, 과정마다 구성이 조금씩 달라요)</p>
+  <div class="adjust"><b data-k="p1.adjt">이럴 땐 수업이 조정돼요</b><span data-k="p1.adj">몰입독서를 선택하거나 월 2회로 수업하면 차시 구성과 수업 시간이 달라져요. 상담 때 아이에게 맞게 자세히 안내드릴게요.</span></div>
 
-  <h3 class="h-sec"><i>02</i><span data-k="p1.s2">학년별 프로그램</span></h3>
+  <h3 class="h-sec"><i>03</i><span data-k="p3.s1">우리 교실만의 특별한 점</span></h3>
+  <div class="pts" id="ptsOut"></div>
+  <div class="pg-foot"><span data-b="branch"></span><span data-b="branchTel"></span><span class="pn">1 / 3</span></div>
+</article>
+
+<!-- ===== 2장: 한우리 수업의 강점 · 학년별 프로그램 ===== -->
+<article class="page p2" id="page2" aria-label="2장 한우리 수업의 강점">
+  <div class="pg-top"><span class="brand">한우리 독서토론논술</span><span class="room" data-b="room"></span></div>
+  <h2 class="h-mid" data-k="p2.title">한우리 수업의 <em>강점</em></h2>
+  <p class="lead" data-k="p2.lead">선생님이 직접 가르치고, 아이 한 명 한 명을 살피는 수업이에요. 책을 제대로 읽고 내 생각을 말과 글로 표현할 때까지 함께해요.</p>
+
+  <div class="strengths">
+    <div><small>01</small><b data-k="p2.s1t">선생님이 가르치는 읽기</b><span data-k="p2.s1">읽기 전략을 가르치고, 아이가 읽는 과정을 옆에서 살펴요.</span></div>
+    <div><small>02</small><b data-k="p2.s2t">질문과 대화로 확인해요</b><span data-k="p2.s2">선생님 질문에 답하며 진짜 이해했는지 그 자리에서 확인해요.</span></div>
+    <div><small>03</small><b data-k="p2.s3t">생각의 틀을 잡아 줘요</b><span data-k="p2.s3">그래픽 조직자·개요표로 읽은 내용을 구조화해요.</span></div>
+    <div><small>04</small><b data-k="p2.s4t">말하고 쓰는 힘</b><span data-k="p2.s4">토의·토론으로 말하고, 글을 쓰고, 첨삭을 받아요.</span></div>
+    <div><small>05</small><b data-k="p2.s5t">한 명 한 명 맞춤 관리</b><span data-k="p2.s5">소그룹에서 아이마다 관찰하고 맞춤 피드백을 드려요.</span></div>
+    <div><small>06</small><b data-k="p2.s6t">매달 새 필독서와 교재</b><span data-k="p2.s6">학년별 교과와 연계하고, 서술형·수행평가 같은 최신 평가 유형을 반영해요.</span></div>
+  </div>
+
+  <h3 class="h-sec"><i>04</i><span data-k="p2.ps">학년별 프로그램</span></h3>
   <table class="prog">
     <thead><tr><th>학년</th><th>정규 과정</th><th>이런 힘을 길러요</th></tr></thead>
     <tbody>
@@ -121,83 +150,27 @@
     <div><b data-k="p1.e2t">선생님과 같이 읽는 몰입독서</b><span data-k="p1.e2">책 읽기가 아직 어려운 아이를 위한 읽기 전문 과정 (유치~중1)</span></div>
     <div><b data-k="p1.e3t">특강</b><span data-k="p1.e3">한국사봄 · 다다어휘 · 똑독해 · 갈래별 문학독해 · 교과문학탐독 · 고등통합사회</span></div>
   </div>
-  <div class="pg-foot"><span data-b="branch"></span><span data-b="branchTel"></span><span class="pn">1 / 3</span></div>
-</article>
-
-<!-- ===== 2장: 차별점 + 생각하는 힘 ===== -->
-<article class="page p2" id="page2" aria-label="2장 한우리가 다른 점">
-  <div class="pg-top"><span class="brand">한우리 독서토론논술</span><span class="room" data-b="room"></span></div>
-  <p class="quote" data-k="p2.q">“책을 많이 읽는데, 왜 읽기 실력은 그대로일까요?”</p>
-  <h2 class="h-mid" data-k="p2.title">읽기만 해서는 <em>생각이 자라지 않아요</em></h2>
-  <p class="lead" data-k="p2.lead">혼자 읽고 퀴즈를 풀면 ‘읽었다’는 기록은 남지만, 아이가 정말 이해했는지는 알 수 없어요. 객관식 문제는 책을 대충 훑어봐도 맞힐 수 있거든요.</p>
-
-  <table class="vs">
-    <thead><tr><th></th><th class="them" data-k="p2.th1">읽고 퀴즈만 푸는 수업</th><th class="us" data-k="p2.th2">한우리 수업</th></tr></thead>
-    <tbody>
-      <tr><th data-k="p2.r1">읽기</th><td data-k="p2.a1">혼자 읽어요</td><td data-k="p2.b1">선생님이 읽기 전략을 가르치고, 읽는 과정을 옆에서 살펴요</td></tr>
-      <tr><th data-k="p2.r2">이해 확인</th><td data-k="p2.a2">객관식 퀴즈 점수</td><td data-k="p2.b2">질문과 대화로 진짜 이해했는지 그 자리에서 확인해요</td></tr>
-      <tr><th data-k="p2.r3">생각 정리</th><td data-k="p2.a3">정답 고르기</td><td data-k="p2.b3">그래픽 조직자·개요표로 생각의 틀을 잡아 줘요</td></tr>
-      <tr><th data-k="p2.r4">표현</th><td data-k="p2.a4">거의 없어요</td><td data-k="p2.b4">토의·토론으로 말하고, 글로 쓰고, 첨삭을 받아요</td></tr>
-      <tr><th data-k="p2.r5">관리</th><td data-k="p2.a5">읽은 권수·레벨 기록</td><td data-k="p2.b5">소그룹에서 한 명 한 명 관찰하고 맞춤 피드백을 드려요</td></tr>
-    </tbody>
-  </table>
-
-  <h3 class="h-sec"><i>03</i><span data-k="p2.s1">선생님이 가르치는 읽기 수업의 흐름</span></h3>
-  <div class="flow">
-    <div><small data-k="p2.fl1t">읽기 전</small><b data-k="p2.fl1">배경지식 깨우기</b><span data-k="p2.fl1d">책 표지·질문으로 아는 것을 꺼내 깊이 읽을 준비를 해요</span></div>
-    <div><small data-k="p2.fl2t">읽는 중</small><b data-k="p2.fl2">질문하며 읽기</b><span data-k="p2.fl2d">핵심과 세부 내용을 구분하고, 선생님 질문으로 생각을 넓혀요</span></div>
-    <div><small data-k="p2.fl3t">읽은 후</small><b data-k="p2.fl3">말하고 쓰기</b><span data-k="p2.fl3d">토론과 글쓰기로 읽은 내용을 내 언어로 정리해요</span></div>
-  </div>
-
-  <div class="ai">
-    <h3 data-k="p2.ait">AI가 답을 알려 주는 시대,<br>아이에게 필요한 건 <em>생각하는 힘</em>이에요</h3>
-    <p data-k="p2.ail">궁금한 것은 AI가 금방 답해 줘요. 그래서 앞으로는 답을 외우는 힘보다, 좋은 질문을 하고 답을 따져 보고 내 생각으로 표현하는 힘이 더 중요해져요.</p>
-    <div class="ai3">
-      <div><b data-k="p2.ai1t">질문하는 힘</b><span data-k="p2.ai1">좋은 질문을 해야 좋은 답을 얻어요</span></div>
-      <div><b data-k="p2.ai2t">따져 보는 힘</b><span data-k="p2.ai2">그럴듯한 답도 근거를 찾아 맞는지 판단해요</span></div>
-      <div><b data-k="p2.ai3t">표현하는 힘</b><span data-k="p2.ai3">남의 답이 아닌 내 생각을 말과 글로 전해요</span></div>
-    </div>
-    <p class="ai-foot" data-k="p2.aif">한우리 수업은 매주 <b>질문하며 읽기 → 근거 찾기 → 토론 → 글쓰기</b>로 이 세 가지 힘을 연습해요.</p>
-  </div>
   <div class="pg-foot"><span data-b="branch"></span><span data-b="branchTel"></span><span class="pn">2 / 3</span></div>
 </article>
 
-<!-- ===== 3장: 우리 교실 + 수업 시간 ===== -->
-<article class="page p3" id="page3" aria-label="3장 우리 교실 안내">
+<!-- ===== 3장: 우리 교실 · 수업 시간 · 연락처 ===== -->
+<article class="page p3" id="page3" aria-label="3장 수업 시간 안내">
   <div class="pg-top"><span class="brand">한우리 독서토론논술</span><span class="room" data-b="room"></span></div>
-  <h2 class="h-mid" data-k="p3.title"><em>우리 교실</em>을 소개해요</h2>
-
-  <div class="teacher">
-    <div class="t-badge"><small data-k="p3.badge">한우리 독서지도사</small><b><span data-b="teacher"></span> 선생님</b></div>
-    <blockquote data-b="phil"></blockquote>
-  </div>
-
-  <h3 class="h-sec"><i>04</i><span data-k="p3.s1">우리 교실만의 특별한 점</span></h3>
-  <div class="pts" id="ptsOut"></div>
+  <h2 class="h-mid" data-k="p3.title"><em>우리 교실</em> 수업 안내</h2>
 
   <h3 class="h-sec"><i>05</i><span data-k="p3.s2">수업 시간 안내</span></h3>
-  <div class="time">
-    <table class="slots-out"><thead><tr><th>대상·과정</th><th>요일</th><th>시간</th></tr></thead><tbody id="slotsOut"></tbody></table>
+  <table class="slots-out"><thead><tr><th>과정</th><th>대상</th><th>요일</th><th>시간</th></tr></thead><tbody id="slotsOut"></tbody></table>
+  <div class="cintro" id="introOut"></div>
+  <div class="time2">
     <div class="rule"><b data-k="p3.rulet">수업 기준</b><div data-b="rule"></div></div>
+    <p class="place" data-b-wrap="place"><b>수업 장소</b><span data-b="place"></span></p>
   </div>
-  <p class="place" data-b-wrap="place"><b>수업 장소</b> <span data-b="place"></span></p>
-
-  <h3 class="h-sec"><i>06</i><span data-k="p3.s3">첫 수업까지 이렇게 진행해요</span></h3>
-  <ol class="join">
-    <li><b data-k="p3.j1">상담</b><span data-k="p3.j1d">아이의 독서 습관과 고민을 들어요</span></li>
-    <li><b data-k="p3.j2">읽기 수준 확인</b><span data-k="p3.j2d">아이에게 맞는 단계를 살펴봐요</span></li>
-    <li><b data-k="p3.j3">반·과정 정하기</b><span data-k="p3.j3d">학년과 수준에 맞는 반을 안내해요</span></li>
-    <li><b data-k="p3.j4">첫 수업</b><span data-k="p3.j4d">필독서와 교재를 받고 시작해요</span></li>
-  </ol>
 
   <div class="contact">
     <p class="closing" data-b="closing"></p>
-    <div class="c-line">
-      <span><b data-b="room"></b></span>
-      <span><span data-b="teacher"></span> 선생님 <b class="tel" data-b="phone"></b></span>
-    </div>
+    <div class="c-room"><b data-b="room"></b> <span class="c-br"><span data-b="branch"></span></span></div>
+    <div class="c-tel"><span><span data-b="teacher"></span> 선생님</span><b class="tel" data-b="phone"></b></div>
   </div>
-  <div class="pg-foot"><span data-b="branch"></span><span data-b="branchTel"></span><span class="pn">3 / 3</span></div>
 </article>
 
 </div>
