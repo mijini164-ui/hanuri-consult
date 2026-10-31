@@ -14,7 +14,8 @@
     "읽는 힘이\n[생각하는 힘]이 돼요",
     "생각하는 힘이\n[공부의 차이]를 만들어요",
     "한 권을 읽어도\n[제대로, 깊이] 있게",
-    "선생님과 함께\n[읽고, 말하고, 쓰는] 시간"
+    "선생님과 함께\n[읽고, 말하고, 쓰는] 시간",
+    "[몰입해서] 읽고\n[거침없이] 쓴다"
   ];
   var PHIL = [
     "아이가 책 속에서 스스로 답을 찾을 때까지 기다리고 질문해 주는 선생님이 되고 싶어요.\n한 권을 읽어도 제대로 읽고, 내 생각을 말할 수 있는 아이로 키울게요.",
@@ -60,8 +61,8 @@
     branch: "한우리 안산단원지부", branchTel: "031-413-1919",
     phil: PHIL[0],
     slots: [blankSlot(), blankSlot()],
-    rule: "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분",
-    rule2: "6~7세는 40분 수업 · 한 반은 2~6명",
+    rule: "1인 60분 · 2인 70분 · 3인 80분 · 4인 90분 수업",
+    rule2: "당일 이유 없는 취소·노쇼는 보강이 어려워요 · 보강은 초등 40분, 중등 50분 · 보강데이 운영 · 기존 반에서 보강 진행",
     closing: "아이의 생각이 자라는 시간, 한우리가 함께할게요.",
     text: {}
   };
@@ -79,7 +80,9 @@
     var o = JSON.parse(JSON.stringify(DEF));
     if (s && typeof s === "object") for (var k in o) if (k in s) o[k] = s[k];
     if (!Array.isArray(o.slots) || o.slots.some(function (r) { return !r || typeof r !== "object" || Array.isArray(r); })) o.slots = DEF.slots;
-    if (o.rule === "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분 · 6~7세 40분 · 한 반 2~6명") { o.rule = DEF.rule; o.rule2 = DEF.rule2; }
+    /* 예전 기본 문구 그대로면 새 기본 문구로 바꿔요 */
+    if (["주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분 · 6~7세 40분 · 한 반 2~6명", "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분"].indexOf(o.rule) >= 0) o.rule = DEF.rule;
+    if (o.rule2 === "6~7세는 40분 수업 · 한 반은 2~6명") o.rule2 = DEF.rule2;
     o.slots = o.slots.slice(0, 2); while (o.slots.length < 2) o.slots.push(blankSlot());
     if (!o.text || typeof o.text !== "object") o.text = {};
     return o;
