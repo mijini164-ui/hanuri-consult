@@ -308,3 +308,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .one .rule-line + .contact{margin-top:auto}
 .one .chasi-note{margin-bottom:4px}
 .one .h-sec{margin:16px 0 8px}.one .hero .kicker{margin-top:12px}
+.r2{border:1px solid var(--line);border-radius:10px;margin:10px 0 0;padding:6px 10px 10px}
+.r2 legend{font-size:12.5px;color:var(--muted);padding:0 4px}
+.r2 .check{margin:4px 0 0;font-size:13px}

@@ -53,6 +53,8 @@
   var CMAP = {};
   COURSES.forEach(function (g) { g[1].forEach(function (c) { CMAP[c[0]] = c; }); });
   var CUSTOM = "__custom__";
+  /* 수업 기준 2에서 고르는 문구 */
+  var RULE2 = ["당일 이유 없는 취소·노쇼는 보강이 어려워요", "보강은 초등 40분, 중등 50분", "보강데이 운영", "기존 반에서 보강 진행"];
   function blankSlot() { return { course: "", day: "", time: "", name: "", grade: "", intro: "" }; }
 
   var DEF = {
@@ -62,7 +64,9 @@
     phil: PHIL[0],
     slots: [blankSlot(), blankSlot()],
     rule: "1인 60분 · 2인 70분 · 3인 80분 · 4인 90분 수업",
-    rule2: "당일 이유 없는 취소·노쇼는 보강이 어려워요 · 보강은 초등 40분, 중등 50분 · 보강데이 운영 · 기존 반에서 보강 진행",
+    rule2: "",
+    rule2Sel: [0, 1, 2, 3],
+    rule2Extra: "",
     closing: "아이의 생각이 자라는 시간, 한우리가 함께할게요.",
     text: {}
   };
@@ -82,7 +86,12 @@
     if (!Array.isArray(o.slots) || o.slots.some(function (r) { return !r || typeof r !== "object" || Array.isArray(r); })) o.slots = DEF.slots;
     /* 예전 기본 문구 그대로면 새 기본 문구로 바꿔요 */
     if (["주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분 · 6~7세 40분 · 한 반 2~6명", "주 1회(월 4회) 기본 · 2명 70분 · 3명 80분 · 4명 이상 90분"].indexOf(o.rule) >= 0) o.rule = DEF.rule;
-    if (o.rule2 === "6~7세는 40분 수업 · 한 반은 2~6명") o.rule2 = DEF.rule2;
+    /* 수업 기준 2: 예전에 직접 쓴 글은 '직접 추가'로 옮겨요 */
+    if (s && typeof s.rule2 === "string" && !("rule2Sel" in s)) {
+      var r2 = s.rule2.trim();
+      if (r2 && r2 !== "6~7세는 40분 수업 · 한 반은 2~6명" && r2 !== RULE2.join(" · ")) { o.rule2Sel = []; o.rule2Extra = r2; }
+    }
+    if (!Array.isArray(o.rule2Sel)) o.rule2Sel = DEF.rule2Sel.slice();
     o.slots = o.slots.slice(0, 2); while (o.slots.length < 2) o.slots.push(blankSlot());
     if (!o.text || typeof o.text !== "object") o.text = {};
     return o;
@@ -178,7 +187,20 @@
     return '<div class="chasi">' + c.map(function (t, i) { return "<span><i>" + (i + 1) + "차시</i>" + esc(t) + "</span>"; }).join("") + "</div>";
   }
   function slotIntro(r) { return r.course === CUSTOM ? (r.intro || "").trim() : (CMAP[r.course] ? CMAP[r.course][2] : ""); }
+  RULE2.forEach(function (t, i) {
+    var l = document.createElement("label"); l.className = "check";
+    l.innerHTML = '<input type="checkbox"> <span></span>';
+    l.querySelector("span").textContent = t;
+    var cb = l.querySelector("input"); cb.checked = state.rule2Sel.indexOf(i) >= 0;
+    cb.addEventListener("change", function () {
+      state.rule2Sel = RULE2.map(function (_, j) { return j; }).filter(function (j) { return j === i ? cb.checked : state.rule2Sel.indexOf(j) >= 0; });
+      render(); save();
+    });
+    $("#rule2Opts").appendChild(l);
+  });
   function render() {
+    state.rule2 = RULE2.filter(function (_, i) { return state.rule2Sel.indexOf(i) >= 0; })
+      .concat((state.rule2Extra || "").trim() ? [state.rule2Extra.trim()] : []).join(" · ");
     $$("[data-b]").forEach(function (el) { var f = el.dataset.b; put(el, (state[f] || "").trim(), PH[f]); });
     $$("[data-b-wrap]").forEach(function (el) { el.hidden = !(state[el.dataset.bWrap] || "").trim(); });
     $("#titleOut").innerHTML = (state.title || "").trim() ? titleHtml(state.title) : '<span class="ph">큰 제목을 적어 주세요</span>';
