@@ -2,7 +2,9 @@
 
 신규 회원 상담 때 학부모님께 드리는 **A4 한 장** 안내문을 만드는 페이지예요. (한우리 수업도우미와는 별개 도구예요.)
 
-주소: https://mijini164-ui.github.io/hanuri-consult/
+주소가 바뀌었어요 → https://hanuri-ansandanwon.github.io/consult/ (저장소: hanuri-ansandanwon/consult)
+
+이 저장소는 예전 주소에서 새 주소로 넘겨 주는 페이지만 남겨 두었어요.
 
 | 순서 | 내용 | 선생님이 고치는 곳 |
 |---|---|---|

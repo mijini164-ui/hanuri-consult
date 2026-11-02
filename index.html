@@ -2,139 +2,28 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>신규 상담 안내문</title>
-<script src="js/shim.js?v=__V__"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
-<link rel="stylesheet" href="css/base.css?v=__V__">
-<link rel="stylesheet" href="css/consult.css?v=__V__">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>신규 상담 안내문 (주소가 바뀌었어요)</title>
+<meta name="robots" content="noindex">
+<style>body{font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#fffdf9;color:#1d2747;display:grid;place-items:center;min-height:100vh;margin:0;padding:16px;text-align:center}a{color:#e8622c;font-weight:700}</style>
 </head>
 <body>
-
-<header class="bar">
-  <div class="bar-in">
-    <div>
-      <h1>신규 상담 안내문 만들기</h1>
-      <p class="sub">왼쪽 칸을 채우면 오른쪽 안내문(A4 한 장)에 바로 들어가요. 적은 내용은 이 기기에 저장돼요.</p>
-    </div>
-    <div class="actions">
-      <button type="button" id="savePdf" class="primary">PDF로 저장</button>
-      <button type="button" id="savePng">그림으로 저장</button>
-      <button type="button" id="print">인쇄</button>
-    </div>
-  </div>
-  <p class="status" id="status" role="status" aria-live="polite"></p>
-</header>
-
-<main class="wrap">
-<!-- ───────── 입력 ───────── -->
-<form class="panel" id="form" autocomplete="off" onsubmit="return false">
-  <section>
-    <h2>1. 큰 제목 (1장 맨 위)</h2>
-    <p class="hint">예시를 누르거나 직접 써요. 줄을 바꾸면 안내문에서도 줄이 바뀌고, <b>[ ]</b> 안의 말은 주황색으로 보여요.</p>
-    <div class="chips" id="titleChips"></div>
-    <label class="sr">큰 제목 <textarea id="f-title" data-f="title" rows="2"></textarea></label>
-  </section>
-
-  <section>
-    <h2>2. 선생님 소개</h2>
-    <div class="two">
-      <label>선생님 이름 <input id="f-teacher" data-f="teacher" placeholder="예: 김한우리"></label>
-      <label>연락처 <input id="f-phone" data-f="phone" placeholder="예: 010-0000-0000"></label>
-    </div>
-    <label>교실 이름 <input id="f-room" data-f="room" placeholder="예: 한우리 안산단원 ○○교실"></label>
-    <p class="hint" style="margin-top:10px">교사관(교육 철학): 2~3줄이 가장 잘 읽혀요. 예시를 넣은 뒤 내 말로 고쳐 주세요.</p>
-    <div class="chips" id="philChips"></div>
-    <label class="sr">교사관 <textarea id="f-phil" data-f="phil" rows="4"></textarea></label>
-  </section>
-
-  <section>
-    <h2>3. 수업 시간 안내</h2>
-    <p class="hint">단계를 2개까지 고르고 수업 시간을 적어요. 고른 단계만 안내문에 짧게 소개돼요. 빈 칸은 나오지 않아요.</p>
-    <div id="slots"></div>
-    <label>수업 장소 <input id="f-place" data-f="place" placeholder="예: 고잔동 ○○아파트 상가 2층 / 방문 수업"></label>
-    <label>수업 기준 1 <input id="f-rule" data-f="rule"></label>
-    <fieldset class="r2">
-      <legend>수업 기준 2 (넣을 것만 고르기)</legend>
-      <div id="rule2Opts"></div>
-      <label>직접 추가 (선택) <input id="f-rule2Extra" data-f="rule2Extra" placeholder="예: 방학 중 휴강 없음"></label>
-    </fieldset>
-    <label>마지막 한마디 <input id="f-closing" data-f="closing"></label>
-    <div class="two">
-      <label>지부 이름 <input id="f-branch" data-f="branch"></label>
-      <label>지부 전화 <input id="f-branchTel" data-f="branchTel"></label>
-    </div>
-  </section>
-
-  <section>
-    <h2>4. 안내문 글 직접 고치기</h2>
-    <label class="check"><input type="checkbox" id="editMode"> 오른쪽 안내문의 글을 눌러서 고치기</label>
-    <p class="hint">고친 글도 이 기기에 저장돼요. 처음 글로 돌리려면 아래 버튼을 눌러요.</p>
-    <button type="button" class="ghost" id="resetText">안내문 글 처음으로 되돌리기</button>
-  </section>
-</form>
-
-<!-- ───────── 미리보기 (A4 3장) ───────── -->
-<div class="preview" id="preview">
-<div class="pages" id="pages">
-
-<!-- ===== A4 한 장 ===== -->
-<article class="page one" id="page1" aria-label="신규 상담 안내문">
-  <div class="pg-top"><span class="brand">한우리 독서토론논술</span><span class="room" data-b="room"></span></div>
-  <div class="hero">
-    <p class="kicker" data-k="p1.kicker">36년 독서교육 전문</p>
-    <h2 class="h-big" id="titleOut"></h2>
-    <p class="lead" data-k="p1.lead">한우리는 책을 읽고, 말하고, 토론하고, 글로 쓰는 과정을 통해 아이 스스로 생각하는 힘을 키우는 독서교육 프로그램이에요.</p>
-  </div>
-
-  <h3 class="h-sec"><i>01</i><span data-k="p1.s0">우리 수업을 소개해요</span></h3>
-  <div class="intro-row">
-    <div class="teacher">
-      <div class="t-badge"><small data-k="p1.badge">한우리 독서지도사</small><b><span data-b="teacher"></span> 선생님</b></div>
-      <blockquote data-b="phil"></blockquote>
-    </div>
-  </div>
-
-  <h3 class="h-sec"><i>02</i><span data-k="p2.title">한우리 수업의 강점</span></h3>
-  <div class="strengths">
-    <div><small>1</small><b data-k="p2.s1t">선생님이 가르치는 읽기</b><span data-k="p2.s1">읽기 전략을 가르치고, 읽는 과정을 옆에서 살펴요.</span></div>
-    <div><small>2</small><b data-k="p2.s2t">질문과 대화로 확인</b><span data-k="p2.s2">질문에 답하며 진짜 이해했는지 그 자리에서 확인해요.</span></div>
-    <div><small>3</small><b data-k="p2.s3t">생각의 틀을 잡아 줘요</b><span data-k="p2.s3">그래픽 조직자·개요표로 읽은 내용을 구조화해요.</span></div>
-    <div><small>4</small><b data-k="p2.s4t">말하고 쓰는 힘</b><span data-k="p2.s4">토의·토론으로 말하고, 글을 쓰고, 첨삭을 받아요.</span></div>
-    <div><small>5</small><b data-k="p2.s5t">한 명 한 명 맞춤 관리</b><span data-k="p2.s5">소그룹에서 아이마다 관찰하고 피드백을 드려요.</span></div>
-    <div><small>6</small><b data-k="p2.s6t">매달 새 필독서와 교재</b><span data-k="p2.s6">교과와 연계하고 서술형·수행평가 유형을 반영해요.</span></div>
-  </div>
-
-  <h3 class="h-sec"><i>03</i><span data-k="p3.s2">수업 시간 안내</span></h3>
-  <table class="slots-out"><thead><tr><th>단계</th><th>요일 · 시간</th><th>이런 수업이에요</th></tr></thead><tbody id="slotsOut"></tbody></table>
-  <p class="chasi-note" data-k="p3.chasinote">※ 차시 구성은 달·호와 아이의 수업 상황에 따라 바뀔 수 있어요.</p>
-  <p class="rule-line" data-b-wrap="rule"><span data-b="rule"></span></p>
-  <p class="rule-line" data-b-wrap="rule2"><span data-b="rule2"></span></p>
-  <p class="rule-line" data-b-wrap="place">수업 장소: <span data-b="place"></span></p>
-
-  <div class="contact">
-    <div class="c-left"><p class="closing" data-b="closing"></p><div class="c-room"><b data-b="room"></b> <span class="c-br" data-b="branch"></span></div></div>
-    <div class="c-tel"><span><span data-b="teacher"></span> 선생님</span><b class="tel" data-b="phone"></b></div>
-  </div>
-</article>
-
+<div>
+  <p>신규 상담 안내문 주소가 바뀌었어요.</p>
+  <p><a id="go" href="https://hanuri-ansandanwon.github.io/consult/">hanuri-ansandanwon.github.io/consult/</a></p>
+  <p style="font-size:13px;color:#5d6886">잠시 후 새 주소로 이동해요.</p>
 </div>
-</div>
-</main>
-
-<div class="viewer" id="viewer" hidden>
-  <div class="viewer-in">
-    <p>그림을 길게 눌러 저장해 주세요.</p>
-    <div id="viewerImgs"></div>
-    <button type="button" id="viewerClose">닫기</button>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="js/consult.js?v=__V__"></script>
+<script>
+/* 이 기기에 적어 둔 내용(consult_v3)을 새 주소로 함께 넘겨요 */
+(function () {
+  var url = "https://hanuri-ansandanwon.github.io/consult/";
+  try {
+    var d = localStorage.getItem("consult_v3") || localStorage.getItem("consult_v2");
+    if (d) url += "#import=" + encodeURIComponent(btoa(unescape(encodeURIComponent(d))));
+  } catch (e) {}
+  document.getElementById("go").href = url;
+  location.replace(url);
+})();
+</script>
 </body>
 </html>
